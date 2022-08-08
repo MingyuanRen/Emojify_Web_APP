@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'prediction',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'corsheaders',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'mainapp.urls'
@@ -129,3 +134,5 @@ try:
     from .local_settings import * 
 except ImportError: 
     pass 
+
+CORS_ORIGIN_ALLOW_ALL = True
