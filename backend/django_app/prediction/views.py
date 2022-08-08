@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from prediction.apps import PredictionConfig
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 import pandas as pd
 import csv
 import numpy as np
@@ -27,6 +29,9 @@ maxLen = len(max(X_train, key=len).split())
 # Class based view to predict based on Emojify model
 # class IRIS_Model_Predict(APIView):
 class Emojify_Model_Predict(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request, format=None):
         data = request.data
         keys = []
@@ -51,7 +56,9 @@ class Emojify_Model_Predict(APIView):
         
         response_dict = {"Predicted Emoji": y_pred[0]}
         return Response(response_dict, status=200)
-    
+
+authentication_classes = [TokenAuthentication]
+permission_classes = [IsAuthenticated]
 
 def read_glove_vecs(glove_file):
     with open(glove_file, 'r') as f:
